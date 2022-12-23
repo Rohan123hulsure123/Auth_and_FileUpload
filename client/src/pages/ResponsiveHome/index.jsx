@@ -138,7 +138,7 @@ function ResponsiveHome(userDetails) {
 								<ListGroup>
 									{
 										allFiles.map((item, index) => {
-											return <ListGroup.Item key={index}><a href={process.env.REACT_APP_API_URL+'/getSingleFile/'+item.filename}>{item.originalname}</a> </ListGroup.Item>
+											return <ListGroup.Item key={index}><a href={process.env.REACT_APP_API_URL+'/getSingleFile/'+item.filename} download>{item.originalname}</a> </ListGroup.Item>
 										})
 									}
 								</ListGroup>

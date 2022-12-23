@@ -63,7 +63,13 @@ function checkAuthenticated(req, res, next) {
 	res.redirect('/auth/login/failed')
 }
 
-app.use('/getSingleFile', checkAuthenticated, express.static(`${__dirname}/uploads`));
+// app.use('/getSingleFile', checkAuthenticated, express.static(`${__dirname}/uploads`));
+app.use(express.static(`${__dirname}/uploads`));
+
+app.get('/getSingleFile/:fileName', checkAuthenticated, (req, res) => {
+	// console.log(req.params.fileName);
+	res.download('uploads/'+req.params.fileName)
+});
   
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listenting on port ${port}...`));
