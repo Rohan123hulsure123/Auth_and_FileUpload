@@ -8,6 +8,7 @@ const authRoute = require("./routes/auth");
 const fileOpRoute = require("./routes/fileOperations");
 const cookieSession = require("cookie-session");
 const passportStrategy = require("./passport");
+const helmet = require("helmet");
 // const upload = require("./s3upload")
 // const upload = require("./upload");
 // const {FileHistory} = require('./models/mongooseModel');
@@ -27,7 +28,7 @@ app.use(
 
 app.use(passport.initialize());
 app.use(passport.session());
-
+app.use(helmet());
 app.use(
 	cors({
 		origin: "http://localhost:3000",
