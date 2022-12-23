@@ -1,0 +1,75 @@
+.main_Home_div {
+    background-color:#fff; 
+    height:90vh; 
+    width:80vw;
+    border-radius: 5px;
+    /* box-shadow: rgb(0 0 0 / 20%) 0px 3px 1px -2px, rgb(0 0 0 / 14%) 0px 2px 2px 0px, rgb(0 0 0 / 12%) 0px 1px 5px 0px; */
+    display:flex; 
+    flex-direction: column; 
+    justify-content: center;
+    align-items:center
+}
+
+.login_heading {
+    position: absolute;
+    top: 50px;
+    color: grey;
+}
+
+.logout_button {
+    cursor: pointer;
+    color: white;
+    background-color: #EB455F;
+    height: 5%;
+    width: 8%;
+    border: 0;
+    border-radius: 10%;
+    position: absolute;
+    top:9vh;
+    right:12vw;
+    font-size: large;
+    font-weight: 700;
+}
+
+.submit_button {
+    margin: 5px 0;
+    height: 40px;
+    padding: 5px;
+    width: 18%;
+    border: 2px;
+    border-color: grey;
+    border-radius: 10%; 
+    background-color: rgb(63, 140, 63);
+    color: white;
+    font-weight: 700;
+    font-size:0.9rem;
+}
+
+.img {
+    width: 160%;
+    position: absolute;
+    left: -60px;
+    top: -50px;
+}
+
+
+.profile_img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    margin-bottom: 10px;
+}
+
+
+.input {
+    width: 250px;
+    height: 26px;
+    padding: 5px;
+    margin: 5px 0;
+    outline: none;
+    border: 2px solid;
+    border-radius: 2px;
+    font-size: 13px;
+    border-radius: 3%;
+    border-color: rgb(208, 204, 204)
+}
