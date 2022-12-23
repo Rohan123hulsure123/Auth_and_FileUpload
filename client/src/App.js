@@ -1,11 +1,12 @@
 import { Routes, Route, Navigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import axios from "axios";
-import Home from "./pages/Home";
+// import Home from "./pages/Home";
 import Login from "./pages/Login";
 
 import Test from "./pages/TestPage";
 import "./App.css";
+import ResponsiveHome from "./pages/ResponsiveHome";
 
 function App() {
 	const [user, setUser] = useState(null);
@@ -25,12 +26,12 @@ function App() {
 	}, []);
 
 	return (
-		<div className="container">
+		<div>
 			<Routes>
 				<Route
 					exact
 					path="/"
-					element={user ? <Home user={user} /> : <Navigate to="/login" />}
+					element={user ? <ResponsiveHome user={user} /> : <Navigate to="/login" />}
 				/>
 				<Route
 					exact

@@ -3,7 +3,7 @@ const Schema=mongoose.Schema
 
 
 const fileHistorySchema=new Schema({
-    userEmalil: String,
+    userEmail: String,
     fieldname: String,
     originalname: String,
     encoding: String,

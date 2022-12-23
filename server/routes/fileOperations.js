@@ -17,7 +17,7 @@ router.post("/upload_file", checkAuthenticated, upload.single("file"), function 
 		// console.log(req.file);
 		// console.log(req.user._json.email);
 		const newFileHistory= new FileHistory({
-			userEmalil: req.user._json.email,
+			userEmail: req.user._json.email,
 			fieldname: req.file.fieldname,
 			originalname: req.file.originalname,
 			encoding: req.file.encoding,
@@ -40,7 +40,7 @@ router.post("/upload_file", checkAuthenticated, upload.single("file"), function 
 
 router.get("/getfiles", async function (req, res) {
 	try {
-		FileHistory.find({userEmalil:req.user._json.email}).clone().sort({"createdAt":-1}).exec((err,files)=>{
+		FileHistory.find({userEmail:req.user._json.email}).clone().sort({"createdAt":-1}).exec((err,files)=>{
 			if (err) {
 				console.log(err);
 			} 
