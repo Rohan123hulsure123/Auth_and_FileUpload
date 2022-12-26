@@ -2,6 +2,7 @@ const router = require("express").Router();
 const express = require("express");
 const {FileHistory} = require('../models/mongooseModel');
 const upload = require("../upload");
+// const upload = require("../s3upload")
 
 //View single file
 // app.use('/getSingleFile', checkAuthenticated, express.static(`${__dirname}/uploads`));
@@ -23,9 +24,10 @@ router.post("/upload_file", checkAuthenticated, upload.single("file"), function 
 			encoding: req.file.encoding,
 			mimetype: req.file.mimetype,
 			destination: req.file.destination,
-			filename: req.file.filename,
+			filename: req.file.filename || req.file.key,
 			path: req.file.path,
-  			size: req.file.size
+  			size: req.file.size,
+			location: req.file.location
 		})
 
 		newFileHistory.save(err => {
@@ -45,7 +47,11 @@ router.get("/getfiles", async function (req, res) {
 				console.log(err);
 			} 
 			// console.log(files);
-			res.json(files)
+			const fileArray = files.map((item, index)=>{
+				return { originalname:item.originalname, filename: item.filename }
+			})
+			// console.log(fileArray);
+			res.json(fileArray)
 		})
 	  } catch (error) {
 		console.log(error);
@@ -55,6 +61,26 @@ router.get("/getfiles", async function (req, res) {
 		});
 	  }
 })
+
+//retrive single file from s3
+// router.get('/retrive/:fileName', checkAuthenticated, async (req, res)=>{
+// 	try {
+// 		FileHistory.findOne({userEmail:req.user._json.email, filename: req.params.fileName}).clone().exec((err,files)=>{
+// 			if (err) {
+// 				console.log(err);
+// 			} 
+// 			// console.log(files.location);
+// 			res.redirect(files.location);
+// 			// res.download(files.location)
+// 		})
+// 	} catch (error) {
+// 		console.log(error);
+// 		res.json({
+// 		  status: "Fail",
+// 		  error,
+// 		});
+// 	}
+// })
 
 function checkAuthenticated(req, res, next) {
 	if (req.isAuthenticated()) {

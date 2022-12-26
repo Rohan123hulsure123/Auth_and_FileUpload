@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 import axios from "axios";
-import { Button, Card, Container, Row, Col, Form, ListGroup } from 'react-bootstrap';
+import { Button, Card, Container, Row, Col, Form, ListGroup, Nav, Navbar, NavDropdown } from 'react-bootstrap';
 import ProfileButton from "../../components/ProfileButton";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useState, useEffect } from "react";
@@ -87,8 +87,29 @@ function ResponsiveHome(userDetails) {
 				<Col md={1}></Col>
 				<Col md={10}>
 				<Card style={{height:'80vh',marginTop:'10vh'}}>
+					<Navbar bg="white" expand="lg">
+						<Container>
+							<Navbar.Brand href="#home"><h1 style={{textAlign:'center', color:'grey', fontWeight:'700'}}>Home</h1></Navbar.Brand>
+							<Navbar.Toggle aria-controls="basic-navbar-nav" />
+							<Navbar.Collapse id="basic-navbar-nav">
+							<Nav className="ms-auto ">
+								<NavDropdown title="User profile" id="basic-nav-dropdown" drop='start' style={{fontSize:'1.2rem'}}>
+								<NavDropdown.Item>
+									<ProfileButton  user={user} className="navbar nav-dropdown"/>
+								</NavDropdown.Item>
+								<NavDropdown.Divider />
+								<NavDropdown.Item style={{height:'40px', minHeight:'40px'}}>
+									<Button as="button"  onClick={logout} className="float-end">
+										Logout
+									</Button>
+								</NavDropdown.Item>
+								</NavDropdown>
+							</Nav>
+							</Navbar.Collapse>
+						</Container>
+					</Navbar>
 					<Card.Body>
-						<Row>
+						{/* <Row>
 							<Col md={4} className="float-start"><ProfileButton  user={user}/></Col>
 							<Col md={4}><h1 style={{textAlign:'center', color:'grey', fontWeight:'800'}}>Home</h1></Col>
 							<Col md={4}>
@@ -96,7 +117,7 @@ function ResponsiveHome(userDetails) {
 									Logout
 								</Button>
 							</Col>
-						</Row>
+						</Row> */}
 						<Row style={{marginTop:'2%'}}>
 							<Col md={3}></Col>
 							<Col md={6}>
@@ -138,6 +159,9 @@ function ResponsiveHome(userDetails) {
 								<ListGroup>
 									{
 										allFiles.map((item, index) => {
+											//For files uploaded on AWS S3
+											// return <ListGroup.Item key={index}><a href={process.env.REACT_APP_API_URL+'/retrive/'+item.filename} download>{item.originalname}</a> </ListGroup.Item>
+											//For files uploaded on web server
 											return <ListGroup.Item key={index}><a href={process.env.REACT_APP_API_URL+'/getSingleFile/'+item.filename} download>{item.originalname}</a> </ListGroup.Item>
 										})
 									}

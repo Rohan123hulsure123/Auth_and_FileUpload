@@ -9,9 +9,6 @@ const fileOpRoute = require("./routes/fileOperations");
 const cookieSession = require("cookie-session");
 const passportStrategy = require("./passport");
 const helmet = require("helmet");
-// const upload = require("./s3upload")
-// const {FileHistory} = require('./models/mongooseModel');
-// const multer = require("multer");
 
 
 const app = express();
@@ -61,14 +58,14 @@ function checkAuthenticated(req, res, next) {
   
 	res.redirect('/auth/login/failed')
 }
-
+//Get files logic
 // app.use('/getSingleFile', checkAuthenticated, express.static(`${__dirname}/uploads`));
-app.use(express.static(`${__dirname}/uploads`));
+// app.use(express.static(`${__dirname}/uploads`));
 
-app.get('/getSingleFile/:fileName', checkAuthenticated, (req, res) => {
-	// console.log(req.params.fileName);
-	res.download('uploads/'+req.params.fileName)
-});
+// app.get('/getSingleFile/:fileName', checkAuthenticated, (req, res) => {
+// 	// console.log(req.params.fileName);
+// 	res.download('uploads/'+req.params.fileName)
+// });
   
 const port = process.env.PORT || 8080;
-app.listen(port, () => console.log(`Listenting on port ${port}...`));
+app.listen(port, () => console.log(`ServerS3 Listenting on port ${port}...`));

@@ -11,7 +11,8 @@ const fileHistorySchema=new Schema({
     destination: String,
     filename: String,
     path: String,
-    size: String
+    size: String,
+    location: String
 },{timestamps:true})
 
 exports.FileHistory=new mongoose.model('FileHistory',fileHistorySchema)

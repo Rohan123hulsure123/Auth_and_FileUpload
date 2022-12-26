@@ -39,8 +39,8 @@ const styles = {
         color:'grey'
     },
     profile_img: {
-            width: '3vw',
-            height: '6vh',
+            width: '50px',
+            height: '50px',
             borderRadius: '50%',
             marginBottom: '10px'
     }
