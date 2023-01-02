@@ -1,6 +1,6 @@
 import styles from "./styles.module.css";
 import axios from "axios";
-import { Button, Card, Container, Row, Col, Form, ListGroup, Nav, Navbar, NavDropdown } from 'react-bootstrap';
+import { Button, Card, Container, Row, Col, Form, ListGroup, Nav, Navbar, NavDropdown, Spinner } from 'react-bootstrap';
 import ProfileButton from "../../components/ProfileButton";
 import ProgressBar from "@ramonak/react-progress-bar";
 import { useState, useEffect } from "react";
@@ -13,7 +13,7 @@ function ResponsiveHome(userDetails) {
 	const [progress, setProgress] = useState();
 	const [error, setError] = useState();
 	const [allFiles, getAllFiles] = useState([]);
-
+	const [spinner, setSpinner] = useState(false);
 
 	const submitHandler = (e) => {
 	  e.preventDefault(); //prevent the form from submitting
@@ -64,7 +64,6 @@ function ResponsiveHome(userDetails) {
 	  
 	};
 
-
 	const logout = () => {
 		window.open(`${process.env.REACT_APP_API_URL}/auth/logout`, "_self");
 	};
@@ -77,6 +76,12 @@ function ResponsiveHome(userDetails) {
 		// console.log(data);
 		// return data;
 	}
+
+	const handleSpinner = ()=>{
+		setSpinner(true);
+		setTimeout(() => setSpinner(false), 3000);
+	}
+
 	useEffect(()=>{
 		getAllFilesFromServer();
 	},[])
@@ -130,7 +135,7 @@ function ResponsiveHome(userDetails) {
 									<Form.Group className="mb-3" controlId="exampleForm.ControlTextarea1">
 										<Form.Label>Select File</Form.Label>
 										<Row>
-											<Col md={9}>
+											<Col md={8}>
 												<Form.Control 
 													type="file" 
 													rows={3} 
@@ -138,10 +143,12 @@ function ResponsiveHome(userDetails) {
 														setSelectedFiles(e.target.files);
 													}}/>
 											</Col>
-											<Col md={3}>
-												<Button type="submit" variant="success" style={{}}>
-													Submit	
+											<Col md={4}>
+												<Button type="submit" variant="success" style={{textAlign:'center'}}>
+													<Spinner animation="border" role="status" size="sm" className={spinner?"visually-true":"visually-hidden"}></Spinner>
+													&nbsp;&nbsp;<span>Submit</span>	
 												</Button>
+												
 											</Col>
 										</Row>
 									</Form.Group>
@@ -160,9 +167,9 @@ function ResponsiveHome(userDetails) {
 									{
 										allFiles.map((item, index) => {
 											//For files uploaded on AWS S3
-											// return <ListGroup.Item key={index}><a href={process.env.REACT_APP_API_URL+'/retrive/'+item.filename} download>{item.originalname}</a> </ListGroup.Item>
+											return <ListGroup.Item key={index}><a href={process.env.REACT_APP_API_URL+'/retrive/'+item.filename} download onClick={handleSpinner}>{item.originalname}</a> </ListGroup.Item>
 											//For files uploaded on web server
-											return <ListGroup.Item key={index}><a href={process.env.REACT_APP_API_URL+'/getSingleFile/'+item.filename} download>{item.originalname}</a> </ListGroup.Item>
+											// return <ListGroup.Item key={index}><a href={process.env.REACT_APP_API_URL+'/getSingleFile/'+item.filename} download>{item.originalname}</a> </ListGroup.Item>
 										})
 									}
 								</ListGroup>

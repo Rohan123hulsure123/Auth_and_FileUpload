@@ -15,8 +15,8 @@ const s3 = new S3Client(
 const upload = multer({
     storage: multerS3({
       s3: s3,
-      bucket: 'myfileuploadfilebucket',
-      acl: 'public-read',
+      // bucket: 'myfileuploadfilebucket',
+      bucket: 'myfileuploadbucketwithpresignedurl',
       metadata: function (req, file, cb) {
         cb(null, {fieldName: file.fieldname});
       },
