@@ -20,7 +20,7 @@ app.use(bodyParser.json());
 app.use(
 	cookieSession({
 		name: "session",
-		keys: ["cyberwolve"],
+		keys: [process.env.COOKIE_KEY],
 		maxAge: 24 * 60 * 60 * 100,
 	})
 );
@@ -62,13 +62,25 @@ function checkAuthenticated(req, res, next) {
 	res.redirect('/auth/login/failed')
 }
 
-// app.use('/getSingleFile', checkAuthenticated, express.static(`${__dirname}/uploads`));
+
 app.use(express.static(`${__dirname}/uploads`));
 
 app.get('/getSingleFile/:fileName', checkAuthenticated, (req, res) => {
 	// console.log(req.params.fileName);
 	res.download('uploads/'+req.params.fileName)
 });
+
+// catch 404
+app.use(function (req, res, next) {
+	res.status(404).redirect(process.env.CLIENT_URL+'/test');
+ });
+  
+  // global error handler
+app.use(function (err, req, res, next) {
+	res.status(500).send();
+});
+  
+
   
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`Listenting on port ${port}...`));

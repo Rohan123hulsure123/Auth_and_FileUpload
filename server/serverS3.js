@@ -17,7 +17,7 @@ app.use(bodyParser.json());
 app.use(
 	cookieSession({
 		name: "session",
-		keys: ["cyberwolve"],
+		keys: [process.env.COOKIE_KEY],
 		maxAge: 24 * 60 * 60 * 100,
 	})
 );
@@ -51,21 +51,16 @@ app.use("/auth", authRoute);
 //file upload routes
 app.use("/",fileOpRoute);
 
-function checkAuthenticated(req, res, next) {
-	if (req.isAuthenticated()) {
-	  return next()
-	}
+// catch 404
+app.use(function (req, res, next) {
+	res.status(404).redirect(process.env.CLIENT_URL+'/test');
+ });
   
-	res.redirect('/auth/login/failed')
-}
-//Get files logic
-// app.use('/getSingleFile', checkAuthenticated, express.static(`${__dirname}/uploads`));
-// app.use(express.static(`${__dirname}/uploads`));
-
-// app.get('/getSingleFile/:fileName', checkAuthenticated, (req, res) => {
-// 	// console.log(req.params.fileName);
-// 	res.download('uploads/'+req.params.fileName)
-// });
+  // global error handler
+app.use(function (err, req, res, next) {
+	res.status(500).send();
+});
+  
   
 const port = process.env.PORT || 8080;
 app.listen(port, () => console.log(`ServerS3 Listenting on port ${port}...`));

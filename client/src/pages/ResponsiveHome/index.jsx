@@ -39,24 +39,8 @@ function ResponsiveHome(userDetails) {
 			}
 		})
 		.catch((error) => {
-		  const { code } = error?.response?.data;
-		  switch (code) {
-			case "FILE_MISSING":
-			  setError("Please select a file before uploading!");
-			  break;
-			case "LIMIT_FILE_SIZE":
-			  setError("File size is too large. Please upload files below 1MB!");
-			  break;
-			case "INVALID_TYPE":
-			  setError(
-				"This file type is not supported! Only .png, .jpg and .jpeg files are allowed"
-			  );
-			  break;
-  
-			default:
-			  setError("Sorry! Something went wrong. Please try again later");
-			  break;
-		  }
+		  console.log(error);
+		  setError("Sorry! Something went wrong. Please try again later");
 		});
 	  } else {
 		setError("Please select a file before uploading!");

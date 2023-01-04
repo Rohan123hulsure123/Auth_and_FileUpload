@@ -4,7 +4,7 @@ function Test(userDetails) {
 	
 	return (
 		<div className={styles.container}>
-			<h1 className={styles.heading}>This is a test page</h1>
+			<h1 className={styles.heading}>404 not found</h1>
 			
 		</div>
 	);
